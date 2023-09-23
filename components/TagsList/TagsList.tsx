@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useRef } from 'react';
 import styles from './TagsList.module.css';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
 import Tag from '../Tag/Tag';
 import { useTagsContext } from '@/context/TagsContext';
 import { ActionTypes } from '@/context/TagsContext.types';
@@ -11,11 +10,14 @@ const TagsList = () => {
   const { selectedTags, tagsDispatch } = useTagsContext();
 
   // Save reference for dragItem and dragOverItem
-  const dragItem = React.useRef<number | null>(null);
-  const dragOverItem = React.useRef<number | null>(null);
+  const dragItem = useRef<number | null>(null);
+  const dragOverItem = useRef<number | null>(null);
 
   // Handle Drag End
   const handleSort = (e: React.DragEvent<HTMLLIElement>) => {
+    const element = e.target as HTMLElement;
+    element.style.opacity = '1';
+
     // Check whether it is dragged to another position
     if (dragItem === dragOverItem) return;
 
@@ -38,43 +40,33 @@ const TagsList = () => {
 
   return (
     <ol className={styles.tag__list}>
-      {selectedTags.length > 0 ? (
+      {selectedTags.length > 0 &&
         selectedTags?.map((tagName, index) => (
           <Tag
             key={index}
             draggable
-            onDragStart={(e) => (dragItem.current = index)}
+            onDragStart={(e) => {
+              const element = e.target as HTMLElement;
+              element.style.opacity = '0.4';
+              dragItem.current = index;
+            }}
             onDragEnter={(e) => (dragOverItem.current = index)}
             onDragEnd={handleSort}
             onDragOver={(e) => e.preventDefault()}
             index={index}
             tagName={tagName}
           />
-        ))
-      ) : (
-        <>
-          <Tag
-            type='edit'
-            tagName='Add your skill'
-            index={selectedTags.length}
-          />
-          {[...Array(9)].map((_, index) => (
-            <Tag
-              tagName='Add your skill'
-              index={selectedTags.length + index + 1}
-              type='mute'
-              key={selectedTags.length + index + 1}
-            />
-          ))}
-        </>
-      )}
+        ))}
+
+      {/* Add the input for the next tag */}
       {selectedTags.length < 10 ? (
         <Tag type='edit' tagName='Add your skill' index={selectedTags.length} />
       ) : (
         ''
       )}
 
-      {selectedTags.length < 9 && selectedTags.length > 0
+      {/* Fill the remaining place with muted tags */}
+      {selectedTags.length < 9
         ? [...Array(9 - selectedTags.length)]?.map((_, index) => (
             <Tag
               tagName='Add your skill'

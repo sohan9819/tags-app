@@ -4,18 +4,7 @@ import { useTagsContext } from '@/context/TagsContext';
 import { ActionTypes } from '@/context/TagsContext.types';
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select/creatable';
-
-interface TagInput {
-  className: string;
-  defaultValue?: OptionType;
-  setIsEditable?: (value: React.SetStateAction<boolean>) => void;
-  type?: 'edit' | 'default';
-}
-
-type OptionType = {
-  value: number;
-  label: string;
-};
+import { TagInput, OptionType } from './Tag.types';
 
 const TagInput = ({
   className,
@@ -28,7 +17,7 @@ const TagInput = ({
   ...props
 }: TagInput) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState<OptionType[]>([]);
   const [selectedOption, setSelectedOption] = useState(defaultValue);
   const defaultIndex = defaultValue.value;
   const { tagsDispatch } = useTagsContext();
@@ -97,7 +86,6 @@ const TagInput = ({
       <Select
         key={`my_unique_select_key__${selectedOption}`}
         classNamePrefix='select'
-        // defaultValue={selectedOption || ''}
         value={selectedOption}
         onChange={onChangeHandler}
         isLoading={isLoading}

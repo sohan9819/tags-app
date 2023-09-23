@@ -19,6 +19,9 @@
   background-color: var(--white);
   padding: 1.4rem;
   border-radius: 0.2rem;
+
+  max-width: 80rem;
+  margin: 0 auto;
 }
 
 .board__heading {

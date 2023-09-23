@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 
 import {
-  SelectedTags,
+  Tags,
   Action,
   ActionTypes,
   TagsContextProviderProps,
@@ -18,7 +18,7 @@ import {
 
 const TagsContext = createContext({} as TagsContextState);
 
-const updateDb = async (state: SelectedTags) => {
+const updateDb = async (state: Tags) => {
   await fetch('/api/tag', {
     method: 'POST',
     body: JSON.stringify(state),
@@ -32,7 +32,7 @@ const updateDb = async (state: SelectedTags) => {
 };
 
 const TagsContextProvider = ({ children }: TagsContextProviderProps) => {
-  const reducer = (state: SelectedTags, { type, payload }: Action) => {
+  const reducer = (state: Tags, { type, payload }: Action) => {
     switch (type) {
       case ActionTypes.UPDATE:
         updateDb([...payload]);
@@ -62,7 +62,7 @@ const TagsContextProvider = ({ children }: TagsContextProviderProps) => {
     }
   };
 
-  const [state, dispatch] = useReducer(reducer, [] as SelectedTags);
+  const [state, dispatch] = useReducer(reducer, [] as Tags);
 
   useEffect(() => {
     (async function fetchTags() {

@@ -5,11 +5,7 @@ import TagInput from './TagInput';
 import { useTagsContext } from '@/context/TagsContext';
 import { ActionTypes } from '@/context/TagsContext.types';
 
-interface TagProps extends React.LiHTMLAttributes<HTMLLIElement> {
-  index: number;
-  tagName: string;
-  type?: 'edit' | 'default' | 'mute';
-}
+import { TagProps } from './Tag.types';
 
 const Tag = ({
   index,
@@ -22,6 +18,7 @@ const Tag = ({
   const { tagsDispatch } = useTagsContext();
 
   useEffect(() => {
+    // If clicked outside the tag
     window.addEventListener('click', (e) => {
       setIsEditable(false);
     });

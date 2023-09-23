@@ -8,7 +8,7 @@ enum ActionTypes {
   REORDER = 'reorder',
   UPDATE = 'update',
 }
-type SelectedTags = string[];
+type Tags = string[];
 type Action =
   | {
       type: ActionTypes.ADD;
@@ -16,7 +16,7 @@ type Action =
     }
   | {
       type: ActionTypes.UPDATE;
-      payload: SelectedTags;
+      payload: Tags;
     }
   | {
       type: ActionTypes.DELETE;
@@ -28,14 +28,9 @@ type Action =
     };
 
 type TagsContextState = {
-  selectedTags: SelectedTags;
+  selectedTags: Tags;
   tagsDispatch: React.Dispatch<Action>;
 };
 
 export { ActionTypes };
-export type {
-  TagsContextProviderProps,
-  SelectedTags,
-  Action,
-  TagsContextState,
-};
+export type { TagsContextProviderProps, Tags, Action, TagsContextState };
