@@ -14,9 +14,8 @@ const TagsList = () => {
   const dragOverItem = useRef<number | null>(null);
 
   // Handle Drag End
-  const handleSort = (e: React.DragEvent<HTMLLIElement>) => {
-    const element = e.target as HTMLElement;
-    element.style.opacity = '1';
+  const handleSort = (event: React.DragEvent<HTMLLIElement>) => {
+    event.preventDefault();
 
     // Check whether it is dragged to another position
     if (dragItem === dragOverItem) return;
@@ -38,44 +37,51 @@ const TagsList = () => {
     tagsDispatch({ type: ActionTypes.UPDATE, payload: _selectedTags });
   };
 
+  const renderTags = () => {
+    return selectedTags?.map((tagName, index) => (
+      <Tag
+        key={index}
+        draggable
+        onDragStart={(event) => (dragItem.current = index)}
+        onDragEnter={(event) => (dragOverItem.current = index)}
+        onDragOver={(event) => event.preventDefault()}
+        onDragEnd={handleSort}
+        index={index}
+        tagName={tagName}
+      />
+    ));
+  };
+
+  const renderEditableTags = () => {
+    if (selectedTags.length < 10) {
+      return (
+        <Tag type='edit' tagName='Add your skill' index={selectedTags.length} />
+      );
+    }
+    return null;
+  };
+
+  const renderMutedTags = () => {
+    const remaining = 9 - selectedTags.length;
+    return Array.from({ length: remaining }).map((_, index) => (
+      <Tag
+        key={selectedTags.length + index + 1}
+        tagName='Add your skill'
+        index={selectedTags.length + index + 1}
+        type='mute'
+      />
+    ));
+  };
+
   return (
     <ol className={styles.tag__list}>
-      {selectedTags.length > 0 &&
-        selectedTags?.map((tagName, index) => (
-          <Tag
-            key={index}
-            draggable
-            onDragStart={(e) => {
-              const element = e.target as HTMLElement;
-              element.style.opacity = '0.4';
-              dragItem.current = index;
-            }}
-            onDragEnter={(e) => (dragOverItem.current = index)}
-            onDragEnd={handleSort}
-            onDragOver={(e) => e.preventDefault()}
-            index={index}
-            tagName={tagName}
-          />
-        ))}
+      {selectedTags.length > 0 && renderTags()}
 
       {/* Add the input for the next tag */}
-      {selectedTags.length < 10 ? (
-        <Tag type='edit' tagName='Add your skill' index={selectedTags.length} />
-      ) : (
-        ''
-      )}
+      {renderEditableTags()}
 
       {/* Fill the remaining place with muted tags */}
-      {selectedTags.length < 9
-        ? [...Array(9 - selectedTags.length)]?.map((_, index) => (
-            <Tag
-              tagName='Add your skill'
-              index={selectedTags.length + index + 1}
-              key={selectedTags.length + index + 1}
-              type='mute'
-            />
-          ))
-        : ''}
+      {selectedTags.length < 9 && renderMutedTags()}
     </ol>
   );
 };

@@ -5,7 +5,6 @@ enum ActionTypes {
   ADD = 'add',
   EDIT = 'edit',
   DELETE = 'delete',
-  REORDER = 'reorder',
   UPDATE = 'update',
 }
 type Tags = string[];

@@ -4,33 +4,43 @@ import styles from './Tag.module.css';
 import TagInput from './TagInput';
 import { useTagsContext } from '@/context/TagsContext';
 import { ActionTypes } from '@/context/TagsContext.types';
-
 import { TagProps } from './Tag.types';
 
-const Tag = ({
-  index,
-  tagName,
-  type = 'default',
-  className,
-  ...props
-}: TagProps) => {
+const Tag = ({ index, tagName, type = 'default', ...props }: TagProps) => {
   const [isEditable, setIsEditable] = useState(false);
   const { tagsDispatch } = useTagsContext();
 
   useEffect(() => {
-    // If clicked outside the tag
-    window.addEventListener('click', (e) => {
+    // Add an event listener to handle clicks outside the tag
+    const handleOutsideClick = (event: MouseEvent) => {
       setIsEditable(false);
-    });
+    };
+
+    window.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      // Clean up the event listener when unmounting
+      window.removeEventListener('click', handleOutsideClick);
+    };
   }, []);
+
+  const handleDoubleClick = (
+    event: React.MouseEvent<HTMLLIElement, MouseEvent>
+  ) => {
+    setIsEditable(true);
+    event.stopPropagation();
+  };
+
+  const handleDeleteClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    tagsDispatch({ type: ActionTypes.DELETE, payload: index });
+  };
 
   switch (type) {
     case 'edit':
       return (
-        <li
-          className={`${className} ${styles.edit}`}
-          style={{ gridArea: `tag${index + 1}` }}
-        >
+        <li className={styles.edit} style={{ gridArea: `tag${index + 1}` }}>
           {index + 1} .
           <TagInput className={styles.input} />
         </li>
@@ -40,7 +50,7 @@ const Tag = ({
       return (
         <li
           {...props}
-          className={`${className} ${styles.mute}`}
+          className={styles.mute}
           style={{ gridArea: `tag${index + 1}` }}
         >
           <span>
@@ -52,7 +62,7 @@ const Tag = ({
     default:
       return isEditable ? (
         <li
-          className={`${className} ${styles.edit}`}
+          className={styles.edit}
           style={{ gridArea: `tag${index + 1}` }}
           onClick={(e) => e.stopPropagation()}
         >
@@ -65,23 +75,11 @@ const Tag = ({
           />
         </li>
       ) : (
-        <li
-          className={styles.tag}
-          {...props}
-          onDoubleClick={(e) => {
-            setIsEditable(true);
-            e.stopPropagation();
-          }}
-        >
+        <li className={styles.tag} {...props} onDoubleClick={handleDoubleClick}>
           <span>
             {index + 1} .{tagName}
           </span>
-          <button
-            className={styles.button}
-            onClick={() =>
-              tagsDispatch({ type: ActionTypes.DELETE, payload: index })
-            }
-          >
+          <button className={styles.button} onClick={handleDeleteClick}>
             <AiOutlineCloseCircle />
           </button>
         </li>

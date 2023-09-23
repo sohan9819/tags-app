@@ -1,17 +1,14 @@
 'use client';
 
-import { useTagsContext } from '@/context/TagsContext';
-import { ActionTypes } from '@/context/TagsContext.types';
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select/creatable';
+import { useTagsContext } from '@/context/TagsContext';
+import { ActionTypes } from '@/context/TagsContext.types';
 import { TagInput, OptionType } from './Tag.types';
 
 const TagInput = ({
   className,
-  defaultValue = {
-    value: 0,
-    label: '',
-  },
+  defaultValue = { value: 0, label: '' },
   type = 'default',
   setIsEditable,
   ...props
@@ -23,7 +20,7 @@ const TagInput = ({
   const { tagsDispatch } = useTagsContext();
 
   useEffect(() => {
-    (async function fetchOptions() {
+    const fetchOptions = async () => {
       setIsLoading(true);
       try {
         const res = await fetch(
@@ -35,37 +32,41 @@ const TagInput = ({
         }
 
         const { items } = await res.json();
-        setOptions(
-          items.map((item: { name: string }, index: number) => ({
+        const mappedOptions = items.map(
+          (item: { name: string }, index: number) => ({
             value: index,
             label: item.name,
-          }))
+          })
         );
+        setOptions(mappedOptions);
       } catch (error) {
         console.error(error);
       } finally {
         setIsLoading(false);
       }
-    })();
+    };
+
+    fetchOptions();
   }, []);
 
   const onSubmitHandler = (
-    e: React.MouseEvent<HTMLFormElement, MouseEvent>
+    event: React.MouseEvent<HTMLFormElement, MouseEvent>
   ) => {
-    e.preventDefault();
+    event.preventDefault();
 
     if (selectedOption.label !== '') {
-      if (type === 'edit' && setIsEditable) {
-        tagsDispatch({
-          type: ActionTypes.EDIT,
-          payload: { index: defaultIndex, value: selectedOption.label },
-        });
+      type === 'edit' && setIsEditable
+        ? tagsDispatch({
+            type: ActionTypes.EDIT,
+            payload: { index: defaultIndex, value: selectedOption.label },
+          })
+        : tagsDispatch({
+            type: ActionTypes.ADD,
+            payload: selectedOption.label,
+          });
+
+      if (setIsEditable) {
         setIsEditable(false);
-      } else {
-        tagsDispatch({
-          type: ActionTypes.ADD,
-          payload: selectedOption.label,
-        });
       }
 
       setSelectedOption({ value: 0, label: '' });
@@ -73,16 +74,33 @@ const TagInput = ({
   };
 
   const onChangeHandler = (
-    selectedOption: {
-      value: number;
-      label: string;
-    } | null
+    selectedOption: { value: number; label: string } | null
   ) => {
     if (selectedOption) setSelectedOption(selectedOption);
   };
 
+  const onCreateOptionHandler = (value: string) => {
+    if (value !== '') {
+      const payload = type === 'edit' ? { index: defaultIndex, value } : value;
+
+      type === 'edit'
+        ? tagsDispatch({
+            type: ActionTypes.EDIT,
+            payload: { index: defaultIndex, value: value },
+          })
+        : tagsDispatch({
+            type: ActionTypes.ADD,
+            payload: value,
+          });
+
+      if (setIsEditable) {
+        setIsEditable(false);
+      }
+    }
+  };
+
   return (
-    <form className={className} onSubmit={onSubmitHandler}>
+    <form className={className} onSubmit={onSubmitHandler} {...props}>
       <Select
         key={`my_unique_select_key__${selectedOption}`}
         classNamePrefix='select'
@@ -94,21 +112,7 @@ const TagInput = ({
         name='color'
         options={options}
         placeholder={'Add your skill'}
-        onCreateOption={(value) => {
-          if (value !== '') {
-            type === 'edit'
-              ? tagsDispatch({
-                  type: ActionTypes.EDIT,
-                  payload: { index: defaultIndex, value: value },
-                })
-              : tagsDispatch({
-                  type: ActionTypes.ADD,
-                  payload: value,
-                });
-
-            setIsEditable ? setIsEditable(false) : '';
-          }
-        }}
+        onCreateOption={onCreateOptionHandler}
       />
     </form>
   );
