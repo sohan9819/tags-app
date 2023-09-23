@@ -20,7 +20,7 @@ type OptionType = {
 const TagInput = ({
   className,
   defaultValue = {
-    value: -1,
+    value: 0,
     label: '',
   },
   type = 'default',
@@ -79,7 +79,7 @@ const TagInput = ({
         });
       }
 
-      setSelectedOption({ value: -1, label: '' });
+      setSelectedOption({ value: 0, label: '' });
     }
   };
 
@@ -95,8 +95,10 @@ const TagInput = ({
   return (
     <form className={className} onSubmit={onSubmitHandler}>
       <Select
+        key={`my_unique_select_key__${selectedOption}`}
         classNamePrefix='select'
-        defaultValue={selectedOption}
+        // defaultValue={selectedOption || ''}
+        value={selectedOption}
         onChange={onChangeHandler}
         isLoading={isLoading}
         isClearable={true}
