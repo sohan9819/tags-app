@@ -1,0 +1,73 @@
+.tag {
+  padding: 0.6rem 1rem;
+  background-color: rgb(92, 209, 209);
+  border-radius: 0.1rem;
+  cursor: move;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tag:nth-child(1) {
+  grid-area: tag1;
+}
+.tag:nth-child(2) {
+  grid-area: tag2;
+}
+.tag:nth-child(3) {
+  grid-area: tag3;
+}
+.tag:nth-child(4) {
+  grid-area: tag4;
+}
+.tag:nth-child(5) {
+  grid-area: tag5;
+}
+.tag:nth-child(6) {
+  grid-area: tag6;
+}
+.tag:nth-child(7) {
+  grid-area: tag7;
+}
+.tag:nth-child(8) {
+  grid-area: tag8;
+}
+.tag:nth-child(9) {
+  grid-area: tag9;
+}
+.tag:nth-child(10) {
+  grid-area: tag10;
+}
+
+.button {
+  background: transparent;
+  font-size: 1.2rem;
+}
+
+.mute {
+  padding: 0.6rem 1rem;
+  background-color: var(--gray);
+  color: var(--text-gray);
+  border-radius: 0.1rem;
+  cursor: not-allowed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit {
+  padding: 0.6rem 1rem;
+  background-color: var(--gray);
+  color: var(--text-gray);
+  border-radius: 0.1rem;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.edit .input {
+  width: 80%;
+  max-width: 20rem;
+}

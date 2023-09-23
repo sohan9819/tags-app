@@ -1,0 +1,16 @@
+.tag__list {
+  width: 100%;
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-areas:
+    'tag1 tag6'
+    'tag2 tag7'
+    'tag3 tag8'
+    'tag4 tag9'
+    'tag5 tag10';
+  justify-items: stretch;
+  list-style: none;
+  gap: 1rem;
+}
