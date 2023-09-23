@@ -49,7 +49,6 @@ const TagsList = () => {
             onDragEnter={(e) => (dragOverItem.current = index)}
             onDragEnd={handleSort}
             onDragOver={(e) => e.preventDefault()}
-            className={`${styles.tag} tag${index + 1}`}
             index={index}
             tagName={tagName}
           />
@@ -66,17 +65,13 @@ const TagsList = () => {
               tagName='Add your skill'
               index={selectedTags.length + index + 1}
               type='mute'
+              key={selectedTags.length + index + 1}
             />
           ))}
         </>
       )}
       {selectedTags.length < 10 ? (
-        <Tag
-          type='edit'
-          tagName='Add your skill'
-          index={selectedTags.length}
-          className={styles.tag}
-        />
+        <Tag type='edit' tagName='Add your skill' index={selectedTags.length} />
       ) : (
         ''
       )}
@@ -86,6 +81,7 @@ const TagsList = () => {
             <Tag
               tagName='Add your skill'
               index={selectedTags.length + index + 1}
+              key={selectedTags.length + index + 1}
               type='mute'
             />
           ))
