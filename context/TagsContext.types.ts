@@ -25,10 +25,6 @@ type Action =
   | {
       type: ActionTypes.EDIT;
       payload: { index: number; value: string };
-    }
-  | {
-      type: ActionTypes.REORDER;
-      payload: string;
     };
 
 type TagsContextState = {

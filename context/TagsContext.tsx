@@ -18,25 +18,45 @@ import {
 
 const TagsContext = createContext({} as TagsContextState);
 
+const updateDb = async (state: SelectedTags) => {
+  await fetch('/api/tag', {
+    method: 'POST',
+    body: JSON.stringify(state),
+  })
+    .then((res) => {
+      console.log(res.body);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 const TagsContextProvider = ({ children }: TagsContextProviderProps) => {
   const reducer = (state: SelectedTags, { type, payload }: Action) => {
     switch (type) {
       case ActionTypes.UPDATE:
+        updateDb([...payload]);
         return [...payload];
+
       case ActionTypes.ADD:
+        updateDb([...state, payload]);
         return [...state, payload];
+
       case ActionTypes.EDIT:
         console.log('Editing ', payload);
         state[payload.index] = payload.value;
+        updateDb([...state]);
         return [...state];
+
       case ActionTypes.DELETE:
-        return [
+        const updatedState = [
           ...state
             .slice(0, payload as number)
             .concat(state.slice((payload as number) + 1)),
         ];
-      case ActionTypes.REORDER:
-        return state;
+        updateDb(updatedState);
+        return updatedState;
+
       default:
         return state;
     }
@@ -54,7 +74,7 @@ const TagsContextProvider = ({ children }: TagsContextProviderProps) => {
         }
 
         const data = await res.json();
-        dispatch({ type: ActionTypes.UPDATE, payload: data.items });
+        dispatch({ type: ActionTypes.UPDATE, payload: data.tags });
       } catch (error) {
         console.error(error);
       }
