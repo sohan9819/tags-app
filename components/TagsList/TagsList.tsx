@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import styles from './tagslist.module.css';
+import styles from './TagsList.module.css';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import Tag from '../Tag/Tag';
 import { useTagsContext } from '@/context/TagsContext';
