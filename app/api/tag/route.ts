@@ -6,7 +6,12 @@ const filePath = path.join(process.cwd(), 'db', 'data.json');
 
 export async function GET(req: Request, res: Response) {
   try {
-    console.log(filePath);
+    if (!fs.existsSync(filePath)) {
+      // Create the file if it doesn't exist
+      const initialData = { tags: [] };
+      fs.writeFileSync(filePath, JSON.stringify(initialData, null, 2));
+    }
+
     const fileContent = fs.readFileSync(filePath, 'utf-8');
     const { tags } = JSON.parse(fileContent);
 
@@ -30,7 +35,14 @@ export async function GET(req: Request, res: Response) {
 
 export async function POST(req: Request, res: Response) {
   const tags = await req.json();
+
   try {
+    if (!fs.existsSync(filePath)) {
+      // Create the file if it doesn't exist
+      const initialData = { tags: [] };
+      fs.writeFileSync(filePath, JSON.stringify(initialData, null, 2));
+    }
+
     const fileContent = fs.readFileSync(filePath, 'utf-8');
     const data = JSON.parse(fileContent);
     data.tags = tags;
