@@ -8,7 +8,6 @@ import { useTagsContext } from '@/context/TagsContext';
 import { ActionTypes } from '@/context/TagsContext.types';
 
 const TagsList = () => {
-  // const [tagItems, setTagItems] = useState<string[]>([]);
   const { selectedTags, tagsDispatch } = useTagsContext();
 
   // Save reference for dragItem and dragOverItem
@@ -34,7 +33,6 @@ const TagsList = () => {
     dragOverItem.current = null;
 
     // update the actual array
-    // setTagItems(_tagItems);
     tagsDispatch({ type: ActionTypes.UPDATE, payload: _selectedTags });
   };
 

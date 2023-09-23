@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-const filePath = path.join(process.cwd(), 'db', 'data.json');
+const filePath = path.join(process.cwd(), 'json', 'data.json');
 
 export async function GET(req: Request, res: Response) {
   try {
@@ -46,6 +46,7 @@ export async function POST(req: Request, res: Response) {
     const fileContent = fs.readFileSync(filePath, 'utf-8');
     const data = JSON.parse(fileContent);
     data.tags = tags;
+
     // Write the updated data back to the file
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
     return NextResponse.json(

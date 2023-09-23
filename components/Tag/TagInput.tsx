@@ -33,31 +33,32 @@ const TagInput = ({
   const defaultIndex = defaultValue.value;
   const { tagsDispatch } = useTagsContext();
 
-  // useEffect(() => {
-  //   (async function fetchOptions() {
-  //     setIsLoading(true);
-  //     try {
-  //       const res = await fetch(
-  //         'https://api.stackexchange.com/2.3/tags?order=desc&sort=popular&site=stackoverflow'
-  //       );
+  useEffect(() => {
+    (async function fetchOptions() {
+      setIsLoading(true);
+      try {
+        const res = await fetch(
+          'https://api.stackexchange.com/2.3/tags?order=desc&sort=popular&site=stackoverflow'
+        );
 
-  //       if (!res.ok) {
-  //         throw new Error('Failed to fetch data');
-  //       }
+        if (!res.ok) {
+          throw new Error('Failed to fetch data');
+        }
 
-  //       const { items } = await res.json();
-  //       setOptions(
-  //         items.map((item: { name: string }, index: number) => ({
-  //           value: index,
-  //           label: item.name,
-  //         }))
-  //       );
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //     setIsLoading(false);
-  //   })();
-  // }, []);
+        const { items } = await res.json();
+        setOptions(
+          items.map((item: { name: string }, index: number) => ({
+            value: index,
+            label: item.name,
+          }))
+        );
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, []);
 
   const onSubmitHandler = (
     e: React.MouseEvent<HTMLFormElement, MouseEvent>
@@ -77,9 +78,9 @@ const TagInput = ({
           payload: selectedOption.label,
         });
       }
-    }
 
-    setSelectedOption({ value: -1, label: '' });
+      setSelectedOption({ value: -1, label: '' });
+    }
   };
 
   const onChangeHandler = (
