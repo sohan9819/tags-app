@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select/creatable';
 import { useTagsContext } from '@/context/TagsContext';
 import { ActionTypes } from '@/context/TagsContext.types';
@@ -21,7 +21,7 @@ const TagInput = ({
   );
   const defaultIndex = defaultValue.value;
   const { tagsDispatch } = useTagsContext();
-  const maxLength = 20;
+  const maxInputLength = 20;
 
   useEffect(() => {
     const fetchOptions = async () => {
@@ -109,9 +109,9 @@ const TagInput = ({
         classNamePrefix='select'
         defaultValue={selectedOption?.label === '' ? null : selectedOption}
         onInputChange={(inputValue) =>
-          inputValue.length <= maxLength
+          inputValue.length <= maxInputLength
             ? inputValue
-            : inputValue.substr(0, maxLength)
+            : inputValue.substr(0, maxInputLength)
         }
         value={selectedOption?.label === '' ? null : selectedOption}
         onChange={onChangeHandler}
