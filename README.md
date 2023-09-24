@@ -4,7 +4,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 Preview Link : https://tags-app.vercel.app/
 
-## App Preview 
+## App Preview
+
 https://github.com/sohan9819/tags-app/assets/64985447/f303550a-9caa-43d9-9965-c32aae73e8d7
 
 > Note : This preview is on local machine , on deployment the data is not been able to save persistently
@@ -59,6 +60,5 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
