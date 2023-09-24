@@ -41,7 +41,7 @@ const Tag = ({ index, tagName, type = 'default', ...props }: TagProps) => {
     case 'edit':
       return (
         <li className={styles.edit} style={{ gridArea: `tag${index + 1}` }}>
-          {index + 1} .
+          {index + 1}.
           <TagInput className={styles.input} />
         </li>
       );
@@ -54,7 +54,7 @@ const Tag = ({ index, tagName, type = 'default', ...props }: TagProps) => {
           style={{ gridArea: `tag${index + 1}` }}
         >
           <span>
-            {index + 1} .{tagName}
+            {index + 1}. {tagName}
           </span>
         </li>
       );
@@ -66,7 +66,7 @@ const Tag = ({ index, tagName, type = 'default', ...props }: TagProps) => {
           style={{ gridArea: `tag${index + 1}` }}
           onClick={(e) => e.stopPropagation()}
         >
-          {index + 1} .
+          {index + 1}.
           <TagInput
             className={styles.input}
             defaultValue={{ value: index, label: tagName }}
@@ -77,7 +77,7 @@ const Tag = ({ index, tagName, type = 'default', ...props }: TagProps) => {
       ) : (
         <li className={styles.tag} {...props} onDoubleClick={handleDoubleClick}>
           <span>
-            {index + 1} .{tagName}
+            {index + 1}. {tagName}
           </span>
           <button className={styles.button} onClick={handleDeleteClick}>
             <AiOutlineCloseCircle />

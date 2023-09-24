@@ -3,7 +3,7 @@ import { Tags } from '@/context/TagsContext.types';
 const updateDb = async (state: Tags) => {
   try {
     const res = await fetch('/api/tag', {
-      method: 'POST',
+      method: 'PUT',
       body: JSON.stringify(state),
     });
 

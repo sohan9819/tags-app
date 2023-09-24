@@ -1,6 +1,6 @@
 .tag {
   padding: 0.6rem 1rem;
-  background-color: rgb(92, 209, 209);
+  background-color: var(--primary);
   border-radius: 0.1rem;
   cursor: move;
   display: flex;

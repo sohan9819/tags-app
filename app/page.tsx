@@ -1,3 +1,4 @@
+import ButtonClear from '@/components/Button/ButtonClear';
 import styles from './page.module.css';
 import TagsList from '@/components/TagsList/TagsList';
 
@@ -11,6 +12,7 @@ export default function Home() {
           assessing you as a potential participant.
         </p>
         <TagsList />
+        <ButtonClear />
       </div>
     </main>
   );

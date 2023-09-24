@@ -26,6 +26,10 @@ const reducer = (state: Tags, { type, payload }: Action) => {
       updateDb(updatedState);
       return updatedState;
 
+    case ActionTypes.CLEAR:
+      updateDb([]);
+      return [];
+
     default:
       return state;
   }

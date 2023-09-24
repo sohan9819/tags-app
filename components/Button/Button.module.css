@@ -1,0 +1,10 @@
+.btn__clear {
+  margin: 2rem 0rem;
+  padding: 0.6rem 1rem;
+  border-radius: 0.2rem;
+  background: var(--gray);
+}
+
+.btn__clear:hover {
+  background: var(--primary);
+}

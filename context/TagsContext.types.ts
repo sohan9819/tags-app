@@ -6,6 +6,7 @@ enum ActionTypes {
   EDIT = 'edit',
   DELETE = 'delete',
   UPDATE = 'update',
+  CLEAR = 'clear',
 }
 type Tags = string[];
 type Action =
@@ -24,6 +25,10 @@ type Action =
   | {
       type: ActionTypes.EDIT;
       payload: { index: number; value: string };
+    }
+  | {
+      type: ActionTypes.CLEAR;
+      payload?: {};
     };
 
 type TagsContextState = {
