@@ -3,10 +3,12 @@
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  padding: 2rem;
+  padding: 2rem 1rem;
   min-height: 100vh;
-  background-color: var(--gray);
+  margin: auto;
   gap: 1rem;
+  width: 100%;
+  max-width: 70rem;
 }
 
 .heading {

@@ -11,6 +11,7 @@ export interface TagInput {
   defaultValue?: OptionType;
   setIsEditable?: (value: React.SetStateAction<boolean>) => void;
   type?: 'edit' | 'default';
+  index: number;
 }
 
 export type OptionType = {

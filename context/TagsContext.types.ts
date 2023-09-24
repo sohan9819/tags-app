@@ -7,6 +7,7 @@ enum ActionTypes {
   DELETE = 'delete',
   UPDATE = 'update',
   CLEAR = 'clear',
+  REORDER = 'reorder',
 }
 type Tags = string[];
 type Action =

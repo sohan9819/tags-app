@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Select from 'react-select/creatable';
 import { useTagsContext } from '@/context/TagsContext';
 import { ActionTypes } from '@/context/TagsContext.types';
@@ -11,13 +11,17 @@ const TagInput = ({
   defaultValue = { value: 0, label: '' },
   type = 'default',
   setIsEditable,
+  index,
   ...props
 }: TagInput) => {
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState<OptionType[]>([]);
-  const [selectedOption, setSelectedOption] = useState(defaultValue);
+  const [selectedOption, setSelectedOption] = useState<OptionType | null>(
+    defaultValue
+  );
   const defaultIndex = defaultValue.value;
   const { tagsDispatch } = useTagsContext();
+  const maxLength = 20;
 
   useEffect(() => {
     const fetchOptions = async () => {
@@ -54,15 +58,15 @@ const TagInput = ({
   ) => {
     event.preventDefault();
 
-    if (selectedOption.label !== '') {
+    if (selectedOption?.label) {
       type === 'edit' && setIsEditable
         ? tagsDispatch({
             type: ActionTypes.EDIT,
-            payload: { index: defaultIndex, value: selectedOption.label },
+            payload: { index: defaultIndex, value: selectedOption!.label },
           })
         : tagsDispatch({
             type: ActionTypes.ADD,
-            payload: selectedOption.label,
+            payload: selectedOption!.label,
           });
 
       if (setIsEditable) {
@@ -102,17 +106,33 @@ const TagInput = ({
   return (
     <form className={className} onSubmit={onSubmitHandler} {...props}>
       <Select
-        key={`my_unique_select_key__${selectedOption}`}
         classNamePrefix='select'
-        value={selectedOption}
+        defaultValue={selectedOption?.label === '' ? null : selectedOption}
+        onInputChange={(inputValue) =>
+          inputValue.length <= maxLength
+            ? inputValue
+            : inputValue.substr(0, maxLength)
+        }
+        value={selectedOption?.label === '' ? null : selectedOption}
         onChange={onChangeHandler}
         isLoading={isLoading}
         isClearable={true}
         isSearchable={true}
         name='color'
         options={options}
-        placeholder={'Add your skill'}
+        placeholder={`${index}. Add your skill`}
         onCreateOption={onCreateOptionHandler}
+        styles={{
+          dropdownIndicator: () => ({ display: 'none' }),
+          control: (base, state) => ({
+            ...base,
+            background: state.isFocused ? '' : 'rgb(207, 251, 242)',
+            width: '100%',
+            height: '100%',
+            border: 'none',
+            padding: '0.2rem 0.8rem',
+          }),
+        }}
       />
     </form>
   );
