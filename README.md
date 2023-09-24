@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=notes-app-tuo1)
+
+Preview Link : https://tags-app.vercel.app/
+
 ## App Preview 
 https://github.com/sohan9819/tags-app/assets/64985447/f303550a-9caa-43d9-9965-c32aae73e8d7
 
