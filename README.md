@@ -5,6 +5,24 @@ https://github.com/sohan9819/tags-app/assets/64985447/f303550a-9caa-43d9-9965-c3
 
 > Note : This preview is on local machine , on deployment the data is not been able to save persistently
 
+## Tasks
+
+- [x] Make UI same as the given design
+- [x] Added the Tag Features
+  - [x] Add Tag
+  - [x] Edit Tag (Double click on tag)
+  - [x] Delete Tag (Click on the (x) )
+  - [x] Reorder/Sort by dragging
+  - [x] Options to select
+  - [x] Extra Features
+    - [x] Clear All Tags
+    - [x] Create new Tag ( which are not in option )
+- [x] Api routes (/api/tag)
+  - [x] Read the data from the file (`.json`)
+  - [ ] Wrtie the data to the file (`.json`)
+    - [x] Development
+    - [ ] Deployment
+
 ## Getting Started
 
 First, run the development server:
@@ -30,9 +48,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.j
-
-s](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
