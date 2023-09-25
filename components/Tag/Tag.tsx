@@ -79,7 +79,9 @@ const Tag = ({ index, tagName, type = 'default', ...props }: TagProps) => {
           className={styles.tag}
           {...props}
           onDoubleClick={handleDoubleClick}
-          style={{ gridArea: `tag${index + 1}` }}
+          style={{
+            gridArea: `tag${index + 1}`,
+          }}
         >
           <span>
             {index + 1}. {tagName}
