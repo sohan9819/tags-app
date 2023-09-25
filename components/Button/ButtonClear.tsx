@@ -9,7 +9,7 @@ interface ButtonClearProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 const ButtonClear = ({ ...props }: ButtonClearProps) => {
-  const { tagsDispatch } = useTagsContext();
+  const { selectedTags, tagsDispatch } = useTagsContext();
 
   const onClickHandler = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -19,7 +19,12 @@ const ButtonClear = ({ ...props }: ButtonClearProps) => {
   };
 
   return (
-    <button className={styles.btn__clear} {...props} onClick={onClickHandler}>
+    <button
+      className={styles.btn__clear}
+      {...props}
+      onClick={onClickHandler}
+      disabled={selectedTags.length === 0}
+    >
       Clear All
     </button>
   );

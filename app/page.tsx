@@ -1,6 +1,7 @@
 import ButtonClear from '@/components/Button/ButtonClear';
 import styles from './page.module.css';
 import TagsList from '@/components/TagsList/TagsList';
+import { useTagsContext } from '@/context/TagsContext';
 
 export default function Home() {
   return (
