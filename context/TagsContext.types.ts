@@ -30,6 +30,10 @@ type Action =
   | {
       type: ActionTypes.CLEAR;
       payload?: {};
+    }
+  | {
+      type: ActionTypes.REORDER;
+      payload: { itemPos: number; targetPos: number };
     };
 
 type TagsContextState = {

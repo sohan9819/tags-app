@@ -25,6 +25,13 @@ const reducer = (state: Tags, { type, payload }: Action) => {
       updateDb(updatedState);
       return updatedState;
 
+    case ActionTypes.REORDER:
+      const item = state[payload.itemPos];
+      const _state = [...state];
+      _state.splice(payload.itemPos, 1);
+      _state.splice(payload.targetPos, 0, item);
+      return _state;
+
     case ActionTypes.CLEAR:
       updateDb([]);
       return [];

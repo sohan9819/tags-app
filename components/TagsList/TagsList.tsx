@@ -37,13 +37,26 @@ const TagsList = () => {
     tagsDispatch({ type: ActionTypes.UPDATE, payload: _selectedTags });
   };
 
+  const onDragEnter = (
+    event: React.DragEvent<HTMLLIElement>,
+    index: number
+  ) => {
+    event.preventDefault();
+    dragOverItem.current = index;
+    tagsDispatch({
+      type: ActionTypes.REORDER,
+      payload: { itemPos: dragItem.current as number, targetPos: index },
+    });
+    dragItem.current = index;
+  };
+
   const renderTags = () => {
     return selectedTags?.map((tagName, index) => (
       <Tag
         key={index}
         draggable
         onDragStart={(event) => (dragItem.current = index)}
-        onDragEnter={(event) => (dragOverItem.current = index)}
+        onDragEnter={(event) => onDragEnter(event, index)}
         onDragOver={(event) => event.preventDefault()}
         onDragEnd={handleSort}
         index={index}
