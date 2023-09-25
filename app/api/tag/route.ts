@@ -23,10 +23,11 @@ export async function GET(req: Request, res: Response) {
       { status: 200 }
     );
   } catch (error) {
+    const _e = error as Error;
     console.error('Error reading JSON file:', error);
     return NextResponse.json(
       {
-        message: 'Internal Server Error',
+        message: _e.message,
       },
       { status: 500 }
     );
@@ -57,11 +58,10 @@ export async function PUT(req: Request, res: Response) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error writing JSON file:', error);
-
+    const _e = error as Error;
     return NextResponse.json(
       {
-        message: 'Internal Server Error',
+        message: _e.message,
       },
       { status: 500 }
     );
