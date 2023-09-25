@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=notes-app-tuo1)
 
-Preview Link : https://tags-app.vercel.app/
+Preview Link : https://tags-app.onrender.com/
 
 ## App Preview
 
@@ -24,9 +24,7 @@ https://github.com/sohan9819/tags-app/assets/64985447/f303550a-9caa-43d9-9965-c3
     - [x] Create new Tag ( which are not in option )
 - [x] Api routes (/api/tag)
   - [x] Read the data from the file (`.json`)
-  - [ ] Wrtie the data to the file (`.json`)
-    - [x] Development
-    - [ ] Deployment
+  - [x] Wrtie the data to the file (`.json`)
 
 ## Getting Started
 
