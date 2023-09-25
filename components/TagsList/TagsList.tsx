@@ -14,8 +14,8 @@ const TagsList = () => {
   const dragOverItem = useRef<number | null>(null);
 
   // Handle Drag End
-  const handleSort = (event: React.DragEvent<HTMLLIElement>) => {
-    event.preventDefault();
+  const handleSort = (event?: React.DragEvent<HTMLLIElement>) => {
+    event?.preventDefault();
 
     // Check whether it is dragged to another position
     if (dragItem === dragOverItem) return;
@@ -43,9 +43,14 @@ const TagsList = () => {
         key={index}
         draggable
         onDragStart={(event) => (dragItem.current = index)}
+        onTouchStart={(event) => (dragItem.current = index)}
         onDragEnter={(event) => (dragOverItem.current = index)}
+        onTouchMove={(event) => (dragOverItem.current = index)}
         onDragOver={(event) => event.preventDefault()}
         onDragEnd={handleSort}
+        onTouchEnd={() => {
+          handleSort();
+        }}
         index={index}
         tagName={tagName}
       />
