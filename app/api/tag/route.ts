@@ -24,7 +24,6 @@ export async function GET(req: Request, res: Response) {
     );
   } catch (error) {
     const _e = error as Error;
-    console.error('Error reading JSON file:', error);
     return NextResponse.json(
       {
         message: _e.message,
