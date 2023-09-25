@@ -8,12 +8,10 @@ Preview Link : https://tags-app.onrender.com/
 
 https://github.com/sohan9819/tags-app/assets/64985447/f303550a-9caa-43d9-9965-c32aae73e8d7
 
-> Note : This preview is on local machine , on deployment the data is not been able to save persistently
-
 ## Tasks
 
 - [x] Make UI same as the given design
-- [x] Added the Tag Features
+- [x] Tag Features
   - [x] Add Tag
   - [x] Edit Tag (Double click on tag)
   - [x] Delete Tag (Click on the (x) )
