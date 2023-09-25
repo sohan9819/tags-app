@@ -53,11 +53,10 @@ const TagInput = ({
     fetchOptions();
   }, []);
 
-  const onSubmitHandler = (
-    event: React.MouseEvent<HTMLFormElement, MouseEvent>
+  const onChangeHandler = (
+    selectedOption: { value: number; label: string } | null
   ) => {
-    event.preventDefault();
-
+    console.log(selectedOption);
     if (selectedOption?.label) {
       type === 'edit' && setIsEditable
         ? tagsDispatch({
@@ -75,12 +74,6 @@ const TagInput = ({
 
       setSelectedOption({ value: 0, label: '' });
     }
-  };
-
-  const onChangeHandler = (
-    selectedOption: { value: number; label: string } | null
-  ) => {
-    if (selectedOption) setSelectedOption(selectedOption);
   };
 
   const onCreateOptionHandler = (value: string) => {
@@ -104,7 +97,7 @@ const TagInput = ({
   };
 
   return (
-    <form className={className} onSubmit={onSubmitHandler} {...props}>
+    <div className={className} {...props}>
       <Select
         classNamePrefix='select'
         defaultValue={selectedOption?.label === '' ? null : selectedOption}
@@ -116,8 +109,8 @@ const TagInput = ({
         value={selectedOption?.label === '' ? null : selectedOption}
         onChange={onChangeHandler}
         isLoading={isLoading}
-        isClearable={true}
-        isSearchable={true}
+        isClearable
+        isSearchable
         name='color'
         options={options}
         placeholder={`${index}. Add your skill`}
@@ -134,7 +127,7 @@ const TagInput = ({
           }),
         }}
       />
-    </form>
+    </div>
   );
 };
 

@@ -12,7 +12,6 @@ const reducer = (state: Tags, { type, payload }: Action) => {
       return [...state, payload];
 
     case ActionTypes.EDIT:
-      console.log('Editing ', payload);
       state[payload.index] = payload.value;
       updateDb([...state]);
       return [...state];
